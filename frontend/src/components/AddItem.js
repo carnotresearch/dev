@@ -6,10 +6,12 @@ const AddItem = () => {
   const [name, setName] = useState("");
   const [time, setTime] = useState("");
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:5000/api/items", { name, time: parseInt(time) })
+      .post("${backendUrl}/api/items", { name, time: parseInt(time) })
       .then(() => {
         setName("");
         setTime("");
