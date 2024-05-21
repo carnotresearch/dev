@@ -6,16 +6,18 @@ const ItemList = () => {
   const [items, setItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/items")
+      .get("${backendUrl}/api/items")
       .then((response) => setItems(response.data))
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
 
   const deleteItem = (id) => {
     axios
-      .delete(`http://localhost:5000/api/items/${id}`)
+      .delete(`${backendUrl}/api/items/${id}`)
       .then(() => setItems(items.filter((item) => item._id !== id)))
       .catch((error) => console.error("Error deleting item: ", error));
   };
@@ -28,14 +30,14 @@ const ItemList = () => {
     event.preventDefault();
     const { name, time } = event.target.elements;
     axios
-      .put(`http://localhost:5000/api/items/${editingItem._id}`, {
+      .put(`${backendUrl}/api/items/${editingItem._id}`, {
         name: name.value,
         time: parseInt(time.value),
       })
       .then(() => {
         setEditingItem(null);
         axios
-          .get("http://localhost:5000/api/items")
+          .get("${backendUrl}/api/items")
           .then((response) => setItems(response.data))
           .catch((error) => console.error("Error fetching data: ", error));
       })
