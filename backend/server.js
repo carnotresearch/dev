@@ -23,6 +23,6 @@ mongoose
 const items = require("./routes/items");
 app.use("/api/items", items);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
